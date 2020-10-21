@@ -5,6 +5,10 @@
 * Implement a secure API using the JSON Web Token open standard (RFC 7519). 
 * Consume the API from a React JS application.
 
+### credentials
+  * user: test@mail.com
+  * password: password
+
 ### Part 1: Implement the API
 
 1. Clone this repository. Compile and run the Spring Boot project.
