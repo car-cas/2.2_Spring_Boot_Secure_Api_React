@@ -15,9 +15,9 @@ export class CardTask extends React.Component{
                                 <div>
                                     <Typography variant="h6">
                                         {this.props.descripcion}  
-                                        {this.props.status === 'In Progress' ? <InboxIcon alt="progress"/> : <div/>}
-                                        {this.props.status === 'Ready' ? <InboxIcon alt="ready"/> : <div/>}
-                                        {this.props.status === 'Completed' ? <InboxIcon alt="completed"/> : <div/>}
+                                        {this.props.status === 'In Progress'}
+                                        {this.props.status === 'Ready'}
+                                        {this.props.status === 'Completed'}
                                     </Typography>
                                 </div>
                             </div>

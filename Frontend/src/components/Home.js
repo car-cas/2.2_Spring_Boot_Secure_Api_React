@@ -25,15 +25,29 @@ class Home extends React.Component{
 
     constructor(props) {
         super(props);
+        this.state={items:[]}
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     }
 
-    state = {
-        open: false,
-        task: []
-    };
-    
+    componentDidMount() {
+        fetch('https://taskplanner-ieti.azurewebsites.net/api/list-task?code=/s20agWQHatQSfQwzv8170axWYxH2ERJMoo6fnIXszWuS7QhOZXTvg==')
+            .then(response =>response.json())
+            .then(data => {
+                var tasks=[]
+                data.forEach(function (task) {
+                    tasks.push(task)    
+                });
+            this.setState({items: tasks});
+                
+            });
+    }
+
+    handleSubmit(e){
+        this.props.handleSubmit(e);
+    }
+
     render() {
         const {classes} = this.props;
         const Buttonstyle = {         
@@ -98,8 +112,7 @@ class Home extends React.Component{
                         <Link href="/Login">Logout</Link>
                     </Button>
                 </Drawer>
-                <CardList
-                    cardList={ localStorage.getItem("items") === null ? [] : JSON.parse(localStorage.getItem("items"))} />
+                <CardList cardList={this.state.items} />
             </div>
         );
     }

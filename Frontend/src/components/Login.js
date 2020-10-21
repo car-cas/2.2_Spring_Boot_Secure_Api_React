@@ -10,15 +10,18 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import "./style.css"
+import axios from 'axios';
 
 export class Login extends React.Component{
     constructor(props){
         super(props);
-        this.state ={email:"",password:""};
+        this.state ={email:"",password:"",IsLoggedIn:false};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUser = this.handleUser.bind(this);
         this.handlePass = this.handlePass.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
+
     render(){
         return (
             <React.Fragment>
@@ -57,9 +60,39 @@ export class Login extends React.Component{
         this.setState({password: pass.target.value});
     }
     handleSubmit(){
-        if (localStorage.getItem("email") === this.state.email && localStorage.getItem("password") === this.state.password){
+        if (localStorage.getItem("email") === this.state.email && localStorage.getItem("password") === this.state.password || (localStorage.getItem("token")!=null)){
             localStorage.setItem("isLoggedIn", true);
             this.props.handleLogin();
         }
+    }
+
+    componentDidMount(){
+        this.handleLogin().then(()=>{
+            this.setState({login:true})
+        }
+        );
+    }
+    
+    handleLogin(){
+        const p = new Promise((resolve) =>{
+            axios.post('http://localhost:8080/user/login', {
+             email: 'test@mail.com',
+             password: 'password'
+             },
+             {headers:{"Content-ype":"application/json"}})
+             .then(function (response) {
+                 localStorage.setItem('token',response.data.accessToken);
+                 localStorage.setItem("IsLoggedIn",true);
+                 localStorage.setItem("username","test");
+                 localStorage.setItem("email",this.state.email);
+                 resolve();
+                 
+             })
+             .catch(function (error) {
+                console.log(error);
+             });
+
+        });
+        return p;
     }
 }

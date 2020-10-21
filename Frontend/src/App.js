@@ -7,12 +7,14 @@ import Home from "./components/Home";
 import {NewTask} from "./components/NewTask";
 import {FilterTask} from "./components/FilterTask";
 import {UserProfile} from "./components/UserProfile";
+import axios from 'axios';
 
 class App extends Component{
-    constructor(props) {
-        super(props);
-        localStorage.setItem('email', "admin");
-        localStorage.setItem('password', "admin");
+  constructor(props) {
+      super(props);
+      this.state = {login:true}
+      localStorage.setItem('email', "test@mail.com");
+      localStorage.setItem('password', "password");
   }
 
   render(){

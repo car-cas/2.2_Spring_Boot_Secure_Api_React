@@ -21,7 +21,7 @@ export class CardList extends React.Component {
 
     return (
       <div className="root">
-        <GridList cellHeight={160} className="gridList" cols={1}>
+        <GridList cellHeight={120} className="gridList" cols={1}>
           {cardList}
         </GridList>
       </div>
